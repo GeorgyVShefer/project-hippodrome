@@ -1,8 +1,10 @@
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
-
+    private final static Logger LOGGER = Logger.getLogger(Hippodrome.class.getName());
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
                 new Horse("Bucephalus", 2.4),
@@ -15,6 +17,9 @@ public class Main {
         );
         Hippodrome hippodrome = new Hippodrome(horses);
 
+        LOGGER.log(Level.INFO,
+                "Main: Начало скачек. Количество участников: {0}", horses.size());
+
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
             watch(hippodrome);
@@ -22,6 +27,8 @@ public class Main {
         }
 
         String winnerName = hippodrome.getWinner().getName();
+        LOGGER.log(Level.INFO,
+                "Main: Окончание скачек. Победитель: {0}", winnerName);
         System.out.println(winnerName + " wins!");
     }
 
